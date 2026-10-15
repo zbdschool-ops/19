@@ -168,15 +168,15 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 .block-pink h4{color:#be185d}
 .block-red{background:linear-gradient(135deg,#fee2e2,#fecaca);border-color:#ef4444}
 .block-red h4{color:#991b1b}
-.dnd-container{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:16px 0}
+.dnd-container{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:16px 0;touch-action:manipulation}
 .dnd-bank,.dnd-target{background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px}
 .dnd-bank h4,.dnd-target h4{margin-bottom:12px;font-size:15px;color:var(--primary)}
-.dnd-card{background:#fff;padding:12px;border-radius:8px;border:2px solid var(--border);cursor:grab;display:flex;align-items:center;gap:10px;font-size:14px;user-select:none;transition:all .2s;box-shadow:0 2px 4px rgba(0,0,0,.05);touch-action:none}
+.dnd-card{background:#fff;padding:12px;border-radius:8px;border:2px solid var(--border);cursor:grab;display:flex;align-items:center;gap:10px;font-size:14px;user-select:none;-webkit-user-select:none;transition:all .2s;box-shadow:0 2px 4px rgba(0,0,0,.05);touch-action:none}
 .dnd-card:hover{border-color:var(--accent);transform:translateX(4px)}
-.dnd-card.touch-active{position:fixed;z-index:1000;pointer-events:none;opacity:.8}
+.dnd-card.touch-active{position:fixed;z-index:1000;pointer-events:none;opacity:.85;transform:scale(1.05);box-shadow:0 8px 24px rgba(30,58,138,.3);-webkit-touch-callout:none}
 .dnd-card-icon{font-size:18px}
 .dnd-slot{background:#f8fafc;border:2px dashed var(--border);border-radius:8px;padding:12px;min-height:50px;display:flex;align-items:center;gap:12px;transition:all .2s;touch-action:none}
-.dnd-slot.drag-over{border-color:var(--accent);background:#eff6ff}
+.dnd-slot.drag-over{border-color:var(--accent)!important;background:#eff6ff!important;transform:scale(1.02)}
 .dnd-slot.filled{border-style:solid;border-color:var(--success);background:#f0fdf4}
 .dnd-slot-number{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
 .dnd-slot-placeholder{color:var(--text-muted);font-size:14px;font-style:italic}
@@ -253,6 +253,8 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 .option{padding:12px;font-size:13px}
 .question-highlight{padding:16px}
 .question-highlight-text{font-size:16px}
+.dnd-card{padding:10px;font-size:13px}
+.dnd-slot{min-height:44px;padding:10px}
 }
 </style>
 </head>
@@ -260,7 +262,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="top-progress-bar"><div class="top-progress-fill" id="topProgressBar"></div></div>
 <div class="progress-widget" id="progressWidget" onclick="showProgressModal()" tabindex="0" role="button" aria-label="Прогрес">
 <div class="progress-widget-header"><span class="progress-widget-title">Прогрес</span><span class="progress-widget-percentage" id="widgetPercentage">0%</span></div>
-<div style="font-size:10px;color:var(--text-muted);margin-bottom:6px">Виконано: <strong id="widgetTasks">0/15</strong></div>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:6px">Виконано: <strong id="widgetTasks">0/14</strong></div>
 <div class="progress-widget-mini-map" id="widgetMiniMap"></div>
 </div>
 <div class="toast-container" id="toastContainer"></div>
@@ -274,7 +276,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 </div>
 </div>
 </header>
-
 <!-- ГОЛОВНА -->
 <main class="container hidden" id="mainPage">
 <div class="hero-unified">
@@ -309,7 +310,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 </div>
 <div class="tip-card">💡 <strong>Пам'ятай:</strong> Репродуктивне та сексуальне здоров'я — це частина загального здоров'я людини. Дбати про нього варто вже сьогодні.</div>
 </main>
-
 <!-- КРОК 1 - СТАРТОВЕ ЗАВДАННЯ -->
 <main class="container hidden" id="step1Page">
 <div class="step-header"><h2 class="step-title">🎯 Крок 1. Стартове завдання</h2></div>
@@ -335,7 +335,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 </div>
 </section>
 </main>
-
 <!-- КРОК 2 - РЕПРОДУКТИВНЕ ЗДОРОВ'Я -->
 <main class="container hidden" id="step2Page">
 <div class="step-header"><div class="step-header-top"><h2 class="step-title">💗 Крок 2. Репродуктивне здоров'я</h2><span class="step-badge">4 завдання</span></div></div>
@@ -376,10 +375,9 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="key-point">💡 <strong>Важливо!</strong> Звернутися до лікаря варто при болю, незвичних виділеннях, ущільненнях, порушеннях менструального циклу або сильному болю під час менструації.</div>
 <div class="navigation"><button class="btn btn-secondary" onclick="goToMainPage()">← До змісту</button><button class="btn btn-primary" onclick="showS2('s2t1')">Далі: Завдання 1 →</button></div>
 </section>
-
 <section class="card hidden" id="s2t1">
 <h2>🔄 Завдання 1. Фактори впливу</h2>
-<div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Розподіли фактори на дві групи: «Позитивно впливають» та «Негативно впливають».</div>
+<div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Розподіли фактори на дві групи: «Позитивно впливають» та «Негативно впливають».<br><br><strong>💻 На комп'ютері:</strong> перетягни картки мишею.<br><strong>📱 На телефоні:</strong> натисни на картку → натисни на цільову зону.</div>
 <div class="dnd-container">
 <div class="dnd-bank"><h4>📋 Фактори</h4><div id="factorBank"></div><button class="dnd-reset-btn" onclick="resetFactors()">🔄 Перемішати</button></div>
 <div class="dnd-target"><h4>✅ Розподіл</h4>
@@ -389,7 +387,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s2t1f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS2('s2Theory')">← Назад</button><button class="btn btn-primary" onclick="chkFactors()">✓ Перевірити</button><button class="btn btn-success" onclick="showS2('s2t2')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s2t2">
 <h2>🔗 Завдання 2. Зіставлення: фактор → вплив</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> З'єднай фактор впливу з його наслідком для репродуктивного здоров'я. Увага: варіанти відповідей однакові для всіх факторів — обери той, що підходить саме цьому фактору.</div>
@@ -402,7 +399,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s2t2f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS2('s2t1')">← Назад</button><button class="btn btn-primary" onclick="chkMatching('s2t2',{m1:'c',m2:'d',m3:'a',m4:'b'},'step2_task2')">✓ Перевірити</button><button class="btn btn-success" onclick="showS2('s2t3')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s2t3">
 <h2>📝 Завдання 3. Аналіз ситуації: Марк</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Ситуація:</strong> Марк помітив незвичні зміни, пов'язані з репродуктивним здоров'ям. Спочатку він сподівався, що вони минуть самі, але цього не сталося. Хлопець соромиться звернутися до лікаря й шукає поради в інтернеті. Друг радить йому просто прийняти антибіотики, які залишилися після попередньої хвороби. Марк не знає, як правильно вчинити.</div>
@@ -422,7 +418,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s2t3f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS2('s2t2')">← Назад</button><button class="btn btn-primary" onclick="chkMulti('s2t3','s2t3f',3,'step2_task3')">✓ Перевірити</button><button class="btn btn-success" onclick="showS2('s2t4')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s2t4">
 <h2>🚨 Завдання 4. Коли звертатися до лікаря?</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Визнач, які симптоми є приводом для звернення до лікаря.</div>
@@ -437,7 +432,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="navigation"><button class="btn btn-secondary" onclick="showS2('s2t3')">← Назад</button><button class="btn btn-primary" onclick="chkMulti('s2t4','s2t4f',4,'step2_task4')">✓ Перевірити</button><button class="btn btn-success" onclick="goToStep(3)">Далі: Крок 3 →</button></div>
 </section>
 </main>
-
 <!-- КРОК 3 - СЕКСУАЛЬНЕ ЗДОРОВ'Я -->
 <main class="container hidden" id="step3Page">
 <div class="step-header"><div class="step-header-top"><h2 class="step-title">❤️ Крок 3. Сексуальне здоров'я та принципи стосунків</h2><span class="step-badge">3 завдання</span></div></div>
@@ -468,7 +462,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 </div>
 <div class="navigation"><button class="btn btn-secondary" onclick="goToMainPage()">← До змісту</button><button class="btn btn-primary" onclick="showS3('s3t1')">Далі: Завдання 1 →</button></div>
 </section>
-
 <section class="card hidden" id="s3t1">
 <h2>🔗 Завдання 1. Зіставлення: принцип → опис</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> З'єднай принцип здорових стосунків із його описом.</div>
@@ -481,7 +474,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s3t1f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS3('s3Theory')">← Назад</button><button class="btn btn-primary" onclick="chkMatching('s3t1',{m31:'a',m32:'d',m33:'b',m34:'c'},'step3_task1')">✓ Перевірити</button><button class="btn btn-success" onclick="showS3('s3t2')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s3t2">
 <h2>📝 Завдання 2. Аналіз ситуації: Софія та Данило</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Ситуація:</strong> Софія та Данило зустрічаються два роки. Данило вважає, що вони вже мають доводити свої почуття не лише словами. Софія не впевнена, що готова до більшої близькості, але боїться, що Данило вирішить, ніби вона його не любить.</div>
@@ -501,7 +493,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s3t2f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS3('s3t1')">← Назад</button><button class="btn btn-primary" onclick="chkMulti('s3t2','s3t2f',3,'step3_task2')">✓ Перевірити</button><button class="btn btn-success" onclick="showS3('s3t3')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s3t3">
 <h2>✅❌ Завдання 3. Правда чи брехня?</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Прочитай твердження та обери — правда це чи брехня.</div>
@@ -533,7 +524,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="navigation"><button class="btn btn-secondary" onclick="showS3('s3t2')">← Назад</button><button class="btn btn-primary" onclick="chkTF('s3t3',{s3t3q1:'false',s3t3q2:'false',s3t3q3:'true'},'step3_task3')">✓ Завершити</button><button class="btn btn-success" onclick="goToStep(4)">Далі: Крок 4 →</button></div>
 </section>
 </main>
-
 <!-- КРОК 4 - СОЦІАЛЬНИЙ ТИСК -->
 <main class="container hidden" id="step4Page">
 <div class="step-header"><div class="step-header-top"><h2 class="step-title">🛑 Крок 4. Соціальний тиск, стереотипи й маніпуляції</h2><span class="step-badge">3 завдання</span></div></div>
@@ -575,7 +565,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 </div>
 <div class="navigation"><button class="btn btn-secondary" onclick="goToMainPage()">← До змісту</button><button class="btn btn-primary" onclick="showS4('s4t1')">Далі: Завдання 1 →</button></div>
 </section>
-
 <section class="card hidden" id="s4t1">
 <h2>🎭 Завдання 1. Визнач тип тиску</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Для кожної фрази визнач, до якого типу тиску вона належить.</div>
@@ -609,10 +598,9 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s4t1f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS4('s4Theory')">← Назад</button><button class="btn btn-primary" onclick="chkAccordion('s4t1',3)">✓ Завершити</button><button class="btn btn-success" onclick="showS4('s4t2')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s4t2">
 <h2>🔄 Завдання 2. Розташуй кроки алгоритму «СТОП»</h2>
-<div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Розташуй кроки алгоритму «СТОП» у правильному порядку.</div>
+<div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Розташуй кроки алгоритму «СТОП» у правильному порядку.<br><br><strong>💻 На комп'ютері:</strong> перетягни картки мишею.<br><strong>📱 На телефоні:</strong> натисни на картку → натисни на слот.</div>
 <div class="dnd-container">
 <div class="dnd-bank"><h4>🔄 Кроки (перемішані)</h4><div id="stopBank"></div><button class="dnd-reset-btn" onclick="resetStop()">🔄 Перемішати</button></div>
 <div class="dnd-target"><h4>✅ Правильний порядок</h4><div id="stopTarget">
@@ -625,7 +613,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s4t2f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS4('s4t1')">← Назад</button><button class="btn btn-primary" onclick="chkStop()">✓ Перевірити</button><button class="btn btn-success" onclick="showS4('s4t3')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s4t3">
 <h2>📝 Завдання 3. Аналіз ситуації: Андрій</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Ситуація:</strong> У Андрія зібралася компанія однокласників. Хлопці знають, що йому подобається Ліза, і починають підштовхувати його піти з нею в іншу кімнату. Хтось жартує: «Ну що, покажи, що ти не дитина», інший додає: «Хлопець має бути досвідченим». Андрій відчуває ніяковість і тиск. Він не хоче нічого доводити компанії, але боїться осуду та насмішок.</div>
@@ -646,7 +633,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="navigation"><button class="btn btn-secondary" onclick="showS4('s4t2')">← Назад</button><button class="btn btn-primary" onclick="chkMulti('s4t3','s4t3f',3,'step4_task3')">✓ Перевірити</button><button class="btn btn-success" onclick="goToStep(5)">Далі: Крок 5 →</button></div>
 </section>
 </main>
-
 <!-- КРОК 5 - ЦИФРОВЕ СЕРЕДОВИЩЕ ТА ДОПОМОГА -->
 <main class="container hidden" id="step5Page">
 <div class="step-header"><div class="step-header-top"><h2 class="step-title">📱 Крок 5. Цифрове середовище та звернення по допомогу</h2><span class="step-badge">3 завдання</span></div></div>
@@ -685,7 +671,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="key-point">💡 <strong>Пам'ятай:</strong> Звернення по допомогу — це не слабкість, а відповідальний крок для збереження здоров'я.</div>
 <div class="navigation"><button class="btn btn-secondary" onclick="goToMainPage()">← До змісту</button><button class="btn btn-primary" onclick="showS5('s5t1')">Далі: Завдання 1 →</button></div>
 </section>
-
 <section class="card hidden" id="s5t1">
 <h2>📝 Завдання 1. Аналіз ситуації: Ніка та Влад</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Ситуація:</strong> Ніка побачила в TikTok тренд «перевір свого хлопця на вірність» і вирішила створити новий акаунт, щоб перевірити Влада. Вона почала листуватися з ним під вигаданим ім'ям.</div>
@@ -705,7 +690,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s5t1f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS5('s5Theory')">← Назад</button><button class="btn btn-primary" onclick="chkMulti('s5t1','s5t1f',3,'step5_task1')">✓ Перевірити</button><button class="btn btn-success" onclick="showS5('s5t2')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s5t2">
 <h2>🔗 Завдання 2. Куди звертатися?</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Інструкція:</strong> Для кожної ситуації обери найвідповідніший ресурс допомоги.</div>
@@ -718,7 +702,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div id="s5t2f" class="feedback" style="display:none"></div>
 <div class="navigation"><button class="btn btn-secondary" onclick="showS5('s5t1')">← Назад</button><button class="btn btn-primary" onclick="chkMatching('s5t2',{m51:'a',m52:'d',m53:'c',m54:'b'},'step5_task2')">✓ Перевірити</button><button class="btn btn-success" onclick="showS5('s5t3')">Далі →</button></div>
 </section>
-
 <section class="card hidden" id="s5t3">
 <h2>📝 Завдання 3. Алгоритм звернення по допомогу</h2>
 <div class="feedback feedback-warning mb-24"><strong>📌 Ситуація:</strong> Софія останнім часом відчуває дискомфорт у нижній частині живота. У неї нерегулярний менструальний цикл, перепади настрою. Вона соромиться про це говорити навіть з подругою. В інтернеті вона знайшла багато суперечливої інформації та ще більше занепокоїлася.</div>
@@ -738,7 +721,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="navigation"><button class="btn btn-secondary" onclick="showS5('s5t2')">← Назад</button><button class="btn btn-primary" onclick="chk('s5t3','step5_task3')">✓ Перевірити</button><button class="btn btn-success" onclick="goToStep(6)">Далі: Самооцінювання →</button></div>
 </section>
 </main>
-
 <!-- КРОК 6 - САМООЦІНЮВАННЯ -->
 <main class="container hidden" id="step6Page">
 <div class="step6-header"><h2>🎉 Вітаємо! Ти завершив(ла) параграф!</h2><p>Час дізнатися свій рівень</p></div>
@@ -759,7 +741,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div class="tip-card">💡 <strong>Безпека, згода й повага — основа відповідальних стосунків.</strong><br>🌱 Дбай про своє здоров'я вже сьогодні!</div>
 <div class="navigation"><button class="btn btn-warning" onclick="resetProgress()">🔄 Пройти ще раз</button><button class="btn btn-primary" onclick="goToMainPage()">🏠 На головну</button></div>
 </main>
-
 <!-- MODALS -->
 <div class="modal-overlay" id="progressModal" role="dialog" aria-modal="true" aria-labelledby="pTitle">
 <div class="modal"><div class="modal-header"><h2 id="pTitle">📊 Мій прогрес</h2><button class="modal-close" onclick="closeModal('progressModal')">✕</button></div>
@@ -780,7 +761,6 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 <div data-icon="🏆" style="padding:10px 0 10px 32px;position:relative"><strong>Прогрес:</strong><br>Натисни на віджет прогресу для перегляду статистики.</div>
 </div>
 <button class="btn btn-primary mt-24" onclick="closeModal('helpModal')" style="width:100%">Зрозуміло!</button></div></div>
-
 <script>
 var TOTAL_TASKS = 14;
 var ST = {
@@ -793,11 +773,9 @@ step5: {t:3, c:0, tasks:{task1:0, task2:0, task3:0}}
 var SC = {1:0, 2:0, 3:0, 4:0, 5:0};
 var PT = {c:0, t:TOTAL_TASKS, a:[]};
 var state = {cs:0, sr:[0,0,0,0]};
-var selStage = null;
-var selSymptom = null;
+var selectedCard = null;
 var accordionCompleted = {};
 var tfCompleted = {};
-
 function addC(id) {
 if (PT.a.indexOf(id) !== -1) return;
 PT.a.push(id);
@@ -1163,6 +1141,143 @@ f.className = "feedback feedback-warning";
 f.innerHTML = "💡 Відповідай на всі питання (" + ok + "/" + total + "), щоб завершити завдання.";
 }
 }
+// === УНІВЕРСАЛЬНА ФУНКЦІЯ TOUCH-DRAG ===
+function setupTouchDrag(card, onDrop, targets, bankId) {
+    var startX, startY, initialX, initialY;
+    var isDragging = false;
+    var hasMoved = false;
+    var touchHandled = false;
+    
+    card.addEventListener("touchstart", function(e) {
+        if (e.touches.length > 1) return;
+        isDragging = true;
+        hasMoved = false;
+        touchHandled = false;
+        var touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        var rect = card.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+        card._origParent = card.parentElement;
+        card._origNext = card.nextSibling;
+    }, {passive: true});
+    
+    card.addEventListener("touchmove", function(e) {
+        if (!isDragging) return;
+        var touch = e.touches[0];
+        var dx = touch.clientX - startX;
+        var dy = touch.clientY - startY;
+        
+        if (!hasMoved && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
+            hasMoved = true;
+            card.classList.add("touch-active");
+            card.style.position = "fixed";
+            card.style.left = initialX + "px";
+            card.style.top = initialY + "px";
+            card.style.width = card.offsetWidth + "px";
+            card.style.zIndex = "1000";
+            card.style.pointerEvents = "none";
+            document.body.appendChild(card);
+        }
+        
+        if (hasMoved) {
+            e.preventDefault();
+            card.style.left = (initialX + dx) + "px";
+            card.style.top = (initialY + dy) + "px";
+            highlightTarget(touch.clientX, touch.clientY, targets);
+        }
+    }, {passive: false});
+    
+    card.addEventListener("touchend", function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        touchHandled = true;
+        
+        setTimeout(function() { touchHandled = false; }, 300);
+        
+        if (!hasMoved) {
+            card.classList.remove("touch-active");
+            if (card.onclick) card.onclick();
+            return;
+        }
+        
+        var touch = e.changedTouches[0];
+        var dropTarget = findTargetAt(touch.clientX, touch.clientY, targets);
+        
+        clearHighlights(targets);
+        
+        if (dropTarget && onDrop) {
+            onDrop(dropTarget, card);
+        } else {
+            returnCard(card);
+        }
+        
+        card.classList.remove("touch-active");
+        card.style.position = "";
+        card.style.left = "";
+        card.style.top = "";
+        card.style.width = "";
+        card.style.zIndex = "";
+        card.style.pointerEvents = "";
+    });
+    
+    card.addEventListener("touchcancel", function() {
+        isDragging = false;
+        clearHighlights(targets);
+        returnCard(card);
+        card.classList.remove("touch-active");
+        card.style.position = "";
+        card.style.left = "";
+        card.style.top = "";
+        card.style.width = "";
+        card.style.zIndex = "";
+        card.style.pointerEvents = "";
+    });
+    
+    card.addEventListener("click", function(e) {
+        if (touchHandled) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+    });
+}
+
+function findTargetAt(x, y, targets) {
+    for (var i = 0; i < targets.length; i++) {
+        var el = document.getElementById(targets[i]);
+        if (!el) continue;
+        var rect = el.getBoundingClientRect();
+        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+            return el;
+        }
+    }
+    return null;
+}
+
+function highlightTarget(x, y, targets) {
+    clearHighlights(targets);
+    var target = findTargetAt(x, y, targets);
+    if (target) target.classList.add("drag-over");
+}
+
+function clearHighlights(targets) {
+    for (var i = 0; i < targets.length; i++) {
+        var el = document.getElementById(targets[i]);
+        if (el) el.classList.remove("drag-over");
+    }
+}
+
+function returnCard(card) {
+    if (card._origParent) {
+        if (card._origNext && card._origNext.parentElement === card._origParent) {
+            card._origParent.insertBefore(card, card._origNext);
+        } else {
+            card._origParent.appendChild(card);
+        }
+    }
+}
 
 // === Factors drag-drop (step 2 task 1) ===
 var factorsData = [
@@ -1177,78 +1292,85 @@ var factorsData = [
 {text:"😫 Хронічний стрес", positive:false}
 ];
 function initFactors() {
-var bank = document.getElementById("factorBank");
-if (!bank) return;
-var cards = bank.querySelectorAll(".dnd-card");
-for (var i = 0; i < cards.length; i++) cards[i].remove();
-var shuffled = factorsData.slice().sort(function() { return Math.random() - 0.5; });
-for (var j = 0; j < shuffled.length; j++) {
-var s = shuffled[j];
-var card = document.createElement("div");
-card.className = "dnd-card";
-card.draggable = true;
-card.dataset.positive = s.positive;
-card.innerHTML = '<span class="dnd-card-icon">📋</span><span class="dnd-card-text">' + s.text + '</span>';
-card.addEventListener("dragstart", function(ev) { ev.dataTransfer.setData("text","factor"); selSymptom = this; });
-setupTouchDragFactor(card);
-card.onclick = function() {
-if (selSymptom === this) { selSymptom.style.outline = ""; selSymptom = null; }
-else { if (selSymptom) selSymptom.style.outline = ""; selSymptom = this; this.style.outline = "3px solid var(--warning)"; }
-};
-bank.appendChild(card);
+    var bank = document.getElementById("factorBank");
+    if (!bank) return;
+    var cards = bank.querySelectorAll(".dnd-card");
+    for (var i = 0; i < cards.length; i++) cards[i].remove();
+    
+    var shuffled = factorsData.slice().sort(function() { return Math.random() - 0.5; });
+    var allTargets = ["factorBank", "positiveTarget", "negativeTarget"];
+    
+    for (var j = 0; j < shuffled.length; j++) {
+        var s = shuffled[j];
+        var card = document.createElement("div");
+        card.className = "dnd-card";
+        card.draggable = true;
+        card.dataset.positive = s.positive;
+        card.innerHTML = '<span class="dnd-card-icon">📋</span><span class="dnd-card-text">' + s.text + '</span>';
+        
+        card.addEventListener("dragstart", function(ev) {
+            ev.dataTransfer.setData("text", "factor");
+            ev.dataTransfer.effectAllowed = "move";
+            window._draggedFactor = this;
+        });
+        
+        setupTouchDrag(card, function(target, card) {
+            placeFactor(target, card);
+        }, allTargets, "factorBank");
+        
+        card.onclick = function() {
+            if (!window._selectedFactor) {
+                window._selectedFactor = this;
+                this.style.outline = "3px solid var(--warning)";
+            } else if (window._selectedFactor === this) {
+                this.style.outline = "";
+                window._selectedFactor = null;
+            } else {
+                window._selectedFactor.style.outline = "";
+                window._selectedFactor = this;
+                this.style.outline = "3px solid var(--warning)";
+            }
+        };
+        
+        bank.appendChild(card);
+    }
+    
+    for (var k = 0; k < allTargets.length; k++) {
+        (function(targetId) {
+            var t = document.getElementById(targetId);
+            if (!t) return;
+            t.addEventListener("dragover", function(ev) { 
+                ev.preventDefault(); 
+                this.classList.add("drag-over"); 
+            });
+            t.addEventListener("dragleave", function() { 
+                this.classList.remove("drag-over"); 
+            });
+            t.addEventListener("drop", function(ev) { 
+                ev.preventDefault(); 
+                this.classList.remove("drag-over"); 
+                if (window._draggedFactor) {
+                    placeFactor(this, window._draggedFactor);
+                    window._draggedFactor = null;
+                }
+            });
+            t.onclick = function() {
+                if (window._selectedFactor) {
+                    placeFactor(this, window._selectedFactor);
+                    window._selectedFactor.style.outline = "";
+                    window._selectedFactor = null;
+                }
+            };
+        })(allTargets[k]);
+    }
+    
+    var f = document.getElementById("s2t1f");
+    if (f) f.style.display = "none";
 }
-var targets = ["positiveTarget","negativeTarget"];
-for (var k = 0; k < targets.length; k++) {
-var t = document.getElementById(targets[k]);
-t.addEventListener("dragover", function(ev) { ev.preventDefault(); this.classList.add("drag-over"); });
-t.addEventListener("dragleave", function() { this.classList.remove("drag-over"); });
-t.addEventListener("drop", function(ev) { ev.preventDefault(); this.classList.remove("drag-over"); if (selSymptom) placeFactor(this, selSymptom); });
-}
-var f = document.getElementById("s2t1f");
-if (f) f.style.display = "none";
-}
-function setupTouchDragFactor(card) {
-var startX, startY, initialX, initialY, isDragging = false;
-card.addEventListener("touchstart", function(e) {
-isDragging = true;
-var touch = e.touches[0];
-startX = touch.clientX; startY = touch.clientY;
-var rect = card.getBoundingClientRect();
-initialX = rect.left; initialY = rect.top;
-card.classList.add("touch-active");
-card.style.position = "fixed";
-card.style.left = initialX + "px";
-card.style.top = initialY + "px";
-card.style.width = rect.width + "px";
-selSymptom = card;
-}, {passive: true});
-card.addEventListener("touchmove", function(e) {
-if (!isDragging) return;
-e.preventDefault();
-var touch = e.touches[0];
-card.style.left = (initialX + touch.clientX - startX) + "px";
-card.style.top = (initialY + touch.clientY - startY) + "px";
-}, {passive: false});
-card.addEventListener("touchend", function(e) {
-if (!isDragging) return;
-isDragging = false;
-card.classList.remove("touch-active");
-card.style.position = ""; card.style.left = ""; card.style.top = ""; card.style.width = "";
-var touch = e.changedTouches[0];
-var targets = ["positiveTarget","negativeTarget"];
-for (var i = 0; i < targets.length; i++) {
-var el = document.getElementById(targets[i]);
-var rect = el.getBoundingClientRect();
-if (touch.clientX >= rect.left && touch.clientX <= rect.right && touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-placeFactor(el, card);
-break;
-}
-}
-});
-}
+
 function placeFactor(target, card) {
-target.appendChild(card);
-card.style.outline = "";
+    target.appendChild(card);
+    card.style.outline = "";
 }
 function resetFactors() { initFactors(); showToast("Перемішано!", "🔄"); }
 function chkFactors() {
@@ -1281,7 +1403,6 @@ f.className = "feedback feedback-error";
 f.innerHTML = "<strong>❌ Не зовсім правильно.</strong> Пам'ятай: харчування, активність, сон, гігієна, вакцинація — позитивні фактори. Куріння, алкоголь, наркотики, стрес — негативні.";
 }
 }
-
 // === STOP algorithm (step 4 task 2) ===
 var stopData = [
 {order:1, text:"🛑 СПИНИТЬСЯ. Не дій одразу"},
@@ -1290,78 +1411,106 @@ var stopData = [
 {order:4, text:"🆘  ПОПРОСИТИ ПРО ДОПОМОГУ"}
 ];
 function initStop() {
-var bank = document.getElementById("stopBank");
-if (!bank) return;
-var cards = bank.querySelectorAll(".dnd-card");
-for (var i = 0; i < cards.length; i++) cards[i].remove();
-var shuffled = stopData.slice().sort(function() { return Math.random() - 0.5; });
-for (var j = 0; j < shuffled.length; j++) {
-var s = shuffled[j];
-var card = document.createElement("div");
-card.className = "dnd-card";
-card.draggable = true;
-card.dataset.order = s.order;
-card.innerHTML = '<span class="dnd-card-icon">🔄</span><span class="dnd-card-text">' + s.text + '</span>';
-card.addEventListener("dragstart", function(ev) { ev.dataTransfer.setData("text","stop"); selStage = this; });
-setupTouchDragStop(card);
-card.onclick = function() {
-if (selStage === this) { selStage.style.outline = ""; selStage = null; }
-else { if (selStage) selStage.style.outline = ""; selStage = this; this.style.outline = "3px solid var(--warning)"; }
-};
-bank.appendChild(card);
+    var bank = document.getElementById("stopBank");
+    if (!bank) return;
+    var cards = bank.querySelectorAll(".dnd-card");
+    for (var i = 0; i < cards.length; i++) cards[i].remove();
+    
+    var shuffled = stopData.slice().sort(function() { return Math.random() - 0.5; });
+    var slots = document.querySelectorAll("#stopTarget .dnd-slot");
+    var slotIds = [];
+    
+    for (var i = 0; i < slots.length; i++) {
+        if (!slots[i].id) slots[i].id = "stopSlot" + i;
+        slotIds[i] = slots[i].id;
+    }
+    
+    var allTargets = ["stopBank"].concat(slotIds);
+    
+    for (var j = 0; j < shuffled.length; j++) {
+        var s = shuffled[j];
+        var card = document.createElement("div");
+        card.className = "dnd-card";
+        card.draggable = true;
+        card.dataset.order = s.order;
+        card.innerHTML = '<span class="dnd-card-icon">🔄</span><span class="dnd-card-text">' + s.text + '</span>';
+        
+        card.addEventListener("dragstart", function(ev) {
+            ev.dataTransfer.setData("text", "stop");
+            ev.dataTransfer.effectAllowed = "move";
+            window._draggedStop = this;
+        });
+        
+        setupTouchDrag(card, function(target, card) {
+            placeStop(target, card);
+        }, allTargets, "stopBank");
+        
+        card.onclick = function() {
+            if (!window._selectedStop) {
+                window._selectedStop = this;
+                this.style.outline = "3px solid var(--warning)";
+            } else if (window._selectedStop === this) {
+                this.style.outline = "";
+                window._selectedStop = null;
+            } else {
+                window._selectedStop.style.outline = "";
+                window._selectedStop = this;
+                this.style.outline = "3px solid var(--warning)";
+            }
+        };
+        
+        bank.appendChild(card);
+    }
+    
+    for (var k = 0; k < slots.length; k++) {
+        (function(slot) {
+            slot.classList.remove("filled");
+            var ph = slot.querySelector(".dnd-slot-placeholder");
+            if (ph) ph.style.display = "";
+            
+            slot.addEventListener("dragover", function(ev) { 
+                ev.preventDefault(); 
+                this.classList.add("drag-over"); 
+            });
+            slot.addEventListener("dragleave", function() { 
+                this.classList.remove("drag-over"); 
+            });
+            slot.addEventListener("drop", function(ev) { 
+                ev.preventDefault(); 
+                this.classList.remove("drag-over"); 
+                if (window._draggedStop) {
+                    placeStop(this, window._draggedStop);
+                    window._draggedStop = null;
+                }
+            });
+            slot.onclick = function() {
+                if (window._selectedStop) {
+                    placeStop(this, window._selectedStop);
+                    window._selectedStop.style.outline = "";
+                    window._selectedStop = null;
+                }
+            };
+        })(slots[k]);
+    }
+    
+    bank.onclick = function() {
+        if (window._selectedStop) {
+            this.appendChild(window._selectedStop);
+            window._selectedStop.style.outline = "";
+            window._selectedStop = null;
+        }
+    };
+    
+    var f = document.getElementById("s4t2f");
+    if (f) f.style.display = "none";
 }
-var slots = document.querySelectorAll("#stopTarget .dnd-slot");
-for (var k = 0; k < slots.length; k++) {
-slots[k].classList.remove("filled");
-var ph = slots[k].querySelector(".dnd-slot-placeholder");
-if (ph) ph.style.display = "";
-slots[k].addEventListener("dragover", function(ev) { ev.preventDefault(); this.classList.add("drag-over"); });
-slots[k].addEventListener("dragleave", function() { this.classList.remove("drag-over"); });
-slots[k].addEventListener("drop", function(ev) { ev.preventDefault(); this.classList.remove("drag-over"); if (selStage) placeStop(this, selStage); });
-}
-var f = document.getElementById("s4t2f");
-if (f) f.style.display = "none";
-}
-function setupTouchDragStop(card) {
-var startX, startY, initialX, initialY, isDragging = false;
-card.addEventListener("touchstart", function(e) {
-isDragging = true;
-var touch = e.touches[0];
-startX = touch.clientX; startY = touch.clientY;
-var rect = card.getBoundingClientRect();
-initialX = rect.left; initialY = rect.top;
-card.classList.add("touch-active");
-card.style.position = "fixed";
-card.style.left = initialX + "px";
-card.style.top = initialY + "px";
-card.style.width = rect.width + "px";
-selStage = card;
-}, {passive: true});
-card.addEventListener("touchmove", function(e) {
-if (!isDragging) return;
-e.preventDefault();
-var touch = e.touches[0];
-card.style.left = (initialX + touch.clientX - startX) + "px";
-card.style.top = (initialY + touch.clientY - startY) + "px";
-}, {passive: false});
-card.addEventListener("touchend", function(e) {
-if (!isDragging) return;
-isDragging = false;
-card.classList.remove("touch-active");
-card.style.position = ""; card.style.left = ""; card.style.top = ""; card.style.width = "";
-var touch = e.changedTouches[0];
-var slots = document.querySelectorAll("#stopTarget .dnd-slot");
-for (var i = 0; i < slots.length; i++) {
-var rect = slots[i].getBoundingClientRect();
-if (touch.clientX >= rect.left && touch.clientX <= rect.right && touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-placeStop(slots[i], card);
-break;
-}
-}
-});
-}
+
 function dropStopHere(slot) {
-if (selStage) { placeStop(slot, selStage); selStage.style.outline = ""; selStage = null; }
+    if (window._selectedStop) { 
+        placeStop(slot, window._selectedStop); 
+        window._selectedStop.style.outline = ""; 
+        window._selectedStop = null; 
+    }
 }
 function placeStop(slot, card) {
 if (slot.classList.contains("filled")) {
@@ -1398,7 +1547,6 @@ f.className = "feedback feedback-error";
 f.innerHTML = "<strong>❌ Не зовсім правильно.</strong> Пам'ятай: С-Т-О-П (Спинись → Тверезо оціни → Озвуч позицію → Попроси допомогу).";
 }
 }
-
 function rate(si, r) {
 state.sr[si - 1] = r;
 saveP();
